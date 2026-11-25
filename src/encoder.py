@@ -7,5 +7,4 @@ def faixa(valor, escala=5, teto=60):
 
 
 def codificar(a, b):
-    # Monta a fita no formato 1^a # 1^b (ex.: a=2, b=3 -> "11#111")
     return "1" * a + "#" + "1" * b
