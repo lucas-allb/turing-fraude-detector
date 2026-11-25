@@ -1,0 +1,35 @@
+﻿Transaþ§es comparadas: 1015558 (MT: 1015558, IF: 1015558)
+
+=== Mßquina de Turing vs. r¾tulo real ===
+[[1007940    5821]
+ [   1784      13]]
+              precision    recall  f1-score   support
+
+           0      0.998     0.994     0.996   1013761
+           1      0.002     0.007     0.003      1797
+
+    accuracy                          0.993   1015558
+   macro avg      0.500     0.501     0.500   1015558
+weighted avg      0.996     0.993     0.994   1015558
+
+
+=== Isolation Forest vs. r¾tulo real ===
+[[1008725    5036]
+ [   1753      44]]
+              precision    recall  f1-score   support
+
+           0      0.998     0.995     0.997   1013761
+           1      0.009     0.024     0.013      1797
+
+    accuracy                          0.993   1015558
+   macro avg      0.503     0.510     0.505   1015558
+weighted avg      0.997     0.993     0.995   1015558
+
+
+ConcordÔncia MT x IF: 0.9918 | Kappa: 0.2343
+
+MT (linhas) x IF (colunas):
+anomalia_if        0     1
+tm_anomalia               
+0            1005945  3779
+1               4533  1301
