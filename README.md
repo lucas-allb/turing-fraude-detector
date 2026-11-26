@@ -90,4 +90,4 @@ marcadas pelos dois métodos. A máquina executa, em média, 636 passos por tran
 
 ## Autores
 
-Natália Nascimento, Jamili Oliveira, Lucas Albuquerque e Brunno Souza.
+Natália Nascimento, Jamili Oliveira e Lucas Albuquerque.
