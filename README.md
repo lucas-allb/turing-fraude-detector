@@ -22,20 +22,22 @@ com um limiar fixo, definido previamente.
 ```
 turing-fraude-detector/
 ├── data/
-│   └── teste.csv                  (não versionado)
+│   └── teste.csv                      (não versionado)
 ├── machines/
-│   └── comparador.json            definição da Máquina de Turing
+│   └── comparador.json                definição da Máquina de Turing
 ├── resultados/
-│   ├── avaliacao.txt              saída da avaliação usada no artigo
-│   ├── isolation_forest.csv       (não versionado)
-│   └── turing.csv                 (não versionado)
+│   ├── analise_complementar.txt       saída da análise complementar
+│   ├── avaliacao.txt                  saída da avaliação usada no artigo
+│   ├── isolation_forest.csv           (não versionado)
+│   └── turing.csv                     (não versionado)
 ├── src/
 │   ├── __init__.py
-│   ├── classify.py                aplica a máquina ao conjunto de teste
-│   ├── complexidade.py            resume os passos executados
-│   ├── encoder.py                 valor em faixa logarítmica e fita 1^a # 1^b
-│   ├── evaluate.py                compara a máquina com o Isolation Forest
-│   └── turing_machine.py          simulador com limite de passos
+│   ├── analise_complementar.py        sobreposição nas lavagens e ordenação (AUC)
+│   ├── classify.py                    aplica a máquina ao conjunto de teste
+│   ├── complexidade.py                resume os passos executados
+│   ├── encoder.py                     valor em faixa logarítmica e fita 1^a # 1^b
+│   ├── evaluate.py                    compara a máquina com o Isolation Forest
+│   └── turing_machine.py              simulador com limite de passos
 ├── tests/
 │   ├── test_classify.py
 │   ├── test_complexidade.py
@@ -69,6 +71,7 @@ localmente (veja "Como reproduzir").
    python -m src.classify
    python -m src.evaluate
    python -m src.complexidade
+   python -m src.analise_complementar
    python -m pytest -v
    ```
 
@@ -82,9 +85,21 @@ localmente (veja "Como reproduzir").
 Concordância de 99,18% e Kappa de Cohen de 0,2343. Apenas 1.301 transações foram
 marcadas pelos dois métodos. A máquina executa, em média, 636 passos por transação.
 
+Análise complementar, sem depender do ponto de corte (prevalência de lavagem: 0,0018):
+
+| Método | AUC-ROC | Precisão média |
+|---|---|---|
+| Máquina de Turing (faixa do valor) | 0,717 | 0,0032 |
+| Isolation Forest (score) | 0,819 | 0,0058 |
+
+Entre as 1.797 lavagens reais, a Máquina de Turing detectou 13 e o Isolation Forest 44;
+11 foram detectadas pelos dois métodos.
+
 ## Limitações
 
 - O critério da máquina usa só o valor pago, sem conversão entre moedas.
+- O corte no percentil 99 captura apenas o extremo superior dos valores, e o limiar não
+  foi reajustado com base no conjunto de teste.
 - A base é sintética e a classe de lavagem é muito rara (0,18% do conjunto de teste).
 - O limiar vem do treino, e o teste é posterior no tempo.
 
