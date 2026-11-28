@@ -6,6 +6,10 @@ Laundering (HI-Small): um modelo de aprendizado não supervisionado (Isolation F
 executado no Google Colab) e uma Máquina de Turing que compara o valor da transação
 com um limiar fixo, definido previamente.
 
+O Isolation Forest comparado é o descrito no artigo: 43 características, 100 árvores,
+`max_samples` 256, `contamination` 0,005, `random_state` 42, treinado no conjunto de
+treino, com limiar no percentil 98 do score na validação (taxa de sinalização de 2%).
+
 ## Como funciona a Máquina de Turing
 
 - O valor pago vira uma faixa logarítmica, `min(int(log10(valor + 1) * 5), 60)`, que
@@ -62,8 +66,10 @@ localmente (veja "Como reproduzir").
    ```
 
 2. No notebook do Colab (Isolation Forest), exporte `teste.csv` e `isolation_forest.csv`
-   com o conjunto de teste. Coloque `teste.csv` em `data/` e `isolation_forest.csv` em
-   `resultados/`. Esses arquivos não são versionados.
+   com o conjunto de teste (1.015.558 transações). Coloque `teste.csv` em `data/` e
+   `isolation_forest.csv` em `resultados/`. Esses arquivos não são versionados. O
+   `isolation_forest.csv` deve vir do modelo de 43 características: na conferência, ele
+   marca 6.293 transações e acerta 71 lavagens.
 
 3. Execute, da raiz do projeto:
 
@@ -80,9 +86,9 @@ localmente (veja "Como reproduzir").
 | Método | Marcadas | Precisão | Revocação | F1 |
 |---|---|---|---|---|
 | Máquina de Turing | 5.834 | 0,002 | 0,007 | 0,003 |
-| Isolation Forest | 5.080 | 0,009 | 0,024 | 0,013 |
+| Isolation Forest | 6.293 | 0,011 | 0,040 | 0,018 |
 
-Concordância de 99,18% e Kappa de Cohen de 0,2343. Apenas 1.301 transações foram
+Concordância de 99,08% e Kappa de Cohen de 0,2208. Apenas 1.367 transações foram
 marcadas pelos dois métodos. A máquina executa, em média, 636 passos por transação.
 
 Análise complementar, sem depender do ponto de corte (prevalência de lavagem: 0,0018):
@@ -90,16 +96,18 @@ Análise complementar, sem depender do ponto de corte (prevalência de lavagem: 
 | Método | AUC-ROC | Precisão média |
 |---|---|---|
 | Máquina de Turing (faixa do valor) | 0,717 | 0,0032 |
-| Isolation Forest (score) | 0,819 | 0,0058 |
+| Isolation Forest (score) | 0,642 | 0,0035 |
 
-Entre as 1.797 lavagens reais, a Máquina de Turing detectou 13 e o Isolation Forest 44;
-11 foram detectadas pelos dois métodos.
+Entre as 1.797 lavagens reais, a Máquina de Turing detectou 13 e o Isolation Forest 71;
+6 foram detectadas pelos dois métodos.
 
 ## Limitações
 
 - O critério da máquina usa só o valor pago, sem conversão entre moedas.
 - O corte no percentil 99 captura apenas o extremo superior dos valores, e o limiar não
   foi reajustado com base no conjunto de teste.
+- O limiar do Isolation Forest foi escolhido na validação com os rótulos (maior F1),
+  enquanto o da máquina foi fixado previamente, sem rótulos.
 - A base é sintética e a classe de lavagem é muito rara (0,18% do conjunto de teste).
 - O limiar vem do treino, e o teste é posterior no tempo.
 
