@@ -1,16 +1,16 @@
-﻿Transaþ§es comparadas: 1015558 (MT: 1015558, IF: 1015558)
+﻿Transações comparadas: 1015558 (MT: 1015558, IF: 1015558)
 
 Lavagens reais no teste: 1797
 
-MT (linhas) x IF (colunas), s¾ nas lavagens reais:
+MT (linhas) x IF (colunas), só nas lavagens reais:
 anomalia_if     0   1
 tm_anomalia          
-0            1751  33
-1               2  11
+0            1719  65
+1               7   6
 
-MT ou IF (uniÒo): 9613 marcadas, 46 lavagens detectadas, precisÒo 0.0048, revocaþÒo 0.0256
-MT e IF (interseþÒo): 1301 marcadas, 11 lavagens detectadas, precisÒo 0.0085, revocaþÒo 0.0061
+MT ou IF (união): 10760 marcadas, 78 lavagens detectadas, precisão 0.0072, revocação 0.0434
+MT e IF (interseção): 1367 marcadas, 6 lavagens detectadas, precisão 0.0044, revocação 0.0033
 
-PrevalÛncia de lavagem (precisÒo mÚdia esperada ao acaso): 0.0018
-Mßquina de Turing (faixa do valor): AUC-ROC = 0.717 | precisÒo mÚdia = 0.0032
-Isolation Forest (score): AUC-ROC = 0.819 | precisÒo mÚdia = 0.0058
+Prevalência de lavagem (precisão média esperada ao acaso): 0.0018
+Máquina de Turing (faixa do valor): AUC-ROC = 0.717 | precisão média = 0.0032
+Isolation Forest (score): AUC-ROC = 0.642 | precisão média = 0.0035
